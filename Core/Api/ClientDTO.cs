@@ -32,4 +32,23 @@ namespace Core.Api
         public string BankName { get; set; }
 
     }
+
+    public class UpdateClaimRequest
+    {
+        public int RequestId { get; set; }
+        public string Comment { get; set; }
+        public List<RequestFileDTO> RequestFileList { get; set; }
+    }
+    public class RequestFile
+    {
+        public int FileId { get; set; }
+
+        //  public string RequestNumber { get; set; }
+        //  public string IDNumber { get; set; }
+        public string FilePath { get; set; }
+        public string MyFile { get; set; }
+        public string FileName { get; set; }
+        public string FileDesc { get; set; }
+        public string Comment { get; set; }
+    }
 }

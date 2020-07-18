@@ -29,16 +29,31 @@ namespace Core.Api
         public string NationalId { get; set; }
         public string Comment { get; set; }
 
-        public  ClientDTO ClientDTO { get; set; }
+        public ClientDTO ClientDTO { get; set; }
 
-        public  List<RequestFileDTO> RequestFileList { get; set; }
+        public List<RequestFileDTO> RequestFileList { get; set; }
+        public List<RequestStatusLogList> RequestStatusLogList { get; set; }
     }
 
     public class ReimbursmentResponse
     {
         public RequestCreateDTO[] _reimbursmentClaims { get; set; }
     }
+    public class RequestStatusLogList
+    {
+        public int RequestId { get; set; }
+        public object RequestStatusName { get; set; }
+        public string Comment { get; set; }
+        public object ClientName { get; set; }
+        public object EntryEmpName { get; set; }
+        public object CreateDate { get; set; }
 
+    }
+
+   
+       
+
+  
     public class MRRequest : BaseEntity
     {
         public int? ClientId { get; set; }
@@ -59,8 +74,20 @@ namespace Core.Api
         public decimal? VATAmount { get; set; }
         public DateTime? TransferDate { get; set; }
 
-        public virtual ClientDTO ClientDTO { get; set; }
+        //public virtual ClientDTO ClientDTO { get; set; }
 
-        public virtual List<RequestFileDTO> RequestFileList { get; set; }
+        //public  virtual List<RequestFileDTO> RequestFileList { get; set; }
+    }
+
+    public class MRClaimType:BaseEntity
+    {        
+        public string ClaimTypeName { get; set; }
+    }
+
+    public class BankMaster:BaseEntity
+    {        
+        public int BankCode { get; set; }
+        public string BankNameEnglish { get; set; }
+        public string BankNameArabic { get; set; }
     }
 }

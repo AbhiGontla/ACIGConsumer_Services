@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Core;
 using Core.Api;
 using Core.Domain;
+using Core.Sms;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -153,6 +154,10 @@ namespace ACIG_Services.Controllers
             }
             else
             {
+                res = new PolicyResponse();
+                res.responseCode = "Success";
+                res.responseData = null;
+                res.responseMessage = "User Policies Not Found";
                 return res;
             }
         }
@@ -605,7 +610,7 @@ namespace ACIG_Services.Controllers
                 //httpClient.DefaultRequestHeaders.Add("Authorization", "Basic " + val);
                 //Getting the input paramters as json 
                 var content = JsonConvert.SerializeObject(_claimdetails);
-              
+
                 var httpContent = new StringContent(content, Encoding.UTF8, "application/json");
 
                 HttpResponseMessage response = await httpClient.PostAsync(url, httpContent);
@@ -686,7 +691,7 @@ namespace ACIG_Services.Controllers
             catch (Exception ex)
             {
                 throw ex;
-            }            
+            }
             return Status;
         }
 
@@ -694,10 +699,10 @@ namespace ACIG_Services.Controllers
         [HttpGet]
         public async Task<List<ReImClaims>> GetClaimsByClientId(string id)
         {
-            List<ReImClaims> reImClaims = null;           
+            List<ReImClaims> reImClaims = null;
             try
             {
-              
+
                 HttpMessageHandler handler = new HttpClientHandler();
                 string url = appSettings.Value.Urls.GetReimbursmentClaims;
                 string cpath = url + id;
@@ -710,15 +715,15 @@ namespace ACIG_Services.Controllers
                 HttpResponseMessage response = await httpClient.GetAsync(cpath);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
-                    
+
                     var a = JsonConvert.DeserializeObject<List<ReImClaims>>(response.Content.ReadAsStringAsync().Result);
                     reImClaims = a;
-                }               
+                }
             }
             catch (Exception ex)
             {
                 throw ex;
-            }      
+            }
             return reImClaims;
         }
 
@@ -754,5 +759,141 @@ namespace ACIG_Services.Controllers
             }
             return reImClaimdetails;
         }
+
+
+        [Route("GetClaimsTypes")]
+        [HttpGet]
+        public List<MRClaimType> GetClaimsTypes()
+        {
+            try
+            {
+                return _customerService.GetClaimTypes();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [Route("GetBankNames")]
+        [HttpGet]
+        public List<BankMaster> GetBankNames()
+        {
+            try
+            {
+                return _customerService.GetBankNames();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [Route("SendSms")]
+        [HttpPost]
+        public ResponseSMS SendSms(ClsSms clsSms)
+        {
+
+            int otp;
+            string response = "";
+            try
+            {
+                otp = GenerateRandomNo();
+                string url = appSettings.Value.SmsConfig.url;
+                string uname = appSettings.Value.SmsConfig.userName;
+                string pwd = appSettings.Value.SmsConfig.password;
+                string sender = appSettings.Value.SmsConfig.senderName;
+                //string mobilenumber = "966508095931";
+                string mobilenumber = clsSms.MobileNumber; ;
+                string message = "Dear Customer,Your One Time Password(OTP):" + otp;
+                SmsRequest request = new SmsRequest();
+                response = request.SmsHandler(mobilenumber, message);
+
+                if (response.ToString() == "Success")
+                {
+                    var responseSMS = new ResponseSMS();
+                    responseSMS.RequestStatus = response;
+                    responseSMS.ResponseText = "OTP Sent Successfully";
+                    responseSMS.OTPSent = otp.ToString();
+                    return responseSMS;
+                }
+                else
+                {
+                    var responseSMS = new ResponseSMS();
+                    responseSMS.RequestStatus = response;
+                    responseSMS.ResponseText = "OTP Sent Failed";
+                    responseSMS.OTPSent = null;
+                    return responseSMS;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        //Generate RandomNo
+        public int GenerateRandomNo()
+        {
+            Random _rdm = new Random();
+            int _min = 1000;
+            int _max = 9999;
+            return _rdm.Next(_min, _max);
+        }
+
+        [Route("GetAllUsers")]
+        [HttpGet]
+        public List<Registration> GetAllUsers()
+        {
+            return _customerService.GetAllCustomers();
+        }
+
+
+        [Route("UpdateClaim")]
+        [HttpPost]
+        public async Task<string> UpdateClaimRequest(UpdateClaimRequest updateClaim)
+        {
+            string status = "false";
+            try
+            {
+                string url = appSettings.Value.Urls.UpdateClaimRequest;
+                HttpMessageHandler handler = new HttpClientHandler();
+
+                var httpClient = new HttpClient(handler)
+                {
+                    BaseAddress = new Uri(url),
+                    Timeout = new TimeSpan(0, 2, 0)
+                };
+
+                httpClient.DefaultRequestHeaders.Add("ContentType", "application/json");
+
+                //This is the key section you were missing    
+                //var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(username + ":" + pass);
+                //string val = System.Convert.ToBase64String(plainTextBytes);
+                //httpClient.DefaultRequestHeaders.Add("Authorization", "Basic " + val);
+                //Getting the input paramters as json 
+                var content = JsonConvert.SerializeObject(updateClaim);
+
+                var httpContent = new StringContent(content, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await httpClient.PostAsync(url, httpContent);
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var st = JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result);
+                    status = st;
+                }
+                else
+                {
+                    return status;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return status;
+        }
+
+    
     }
 }

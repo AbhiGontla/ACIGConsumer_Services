@@ -22,8 +22,10 @@ namespace Core
         public string GetReimbursmentClaims { get; set; }
         public string GetReimbursmentDetails { get; set; }
         public string AddReimbursmentClaims { get; set; }
+        public string UpdateClaimRequest { get; set; }
+        
 
-     
+
     }
     public class BasicAuth
     {

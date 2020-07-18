@@ -236,6 +236,21 @@ namespace Services
             var res = _unitOfWorks.ReimbursmentRepository.GetDbSet();
             return res.Where(c => (c.MemberID == _clientdetails.IDNumber)).ToList();
         }
+
+        public List<MRClaimType> GetClaimTypes()
+        {
+           return  _unitOfWorks.ClaimTypeRepository.GetDbSet().ToList();
+        }
+
+        public List<BankMaster> GetBankNames()
+        {
+            return _unitOfWorks.BankRepository.GetDbSet().ToList();
+        }
+
+        public List<Registration> GetAllCustomers()
+        {
+            return _unitOfWorks.RegistrationRepository.GetDbSet().ToList();
+        }
         #endregion
     }
 }

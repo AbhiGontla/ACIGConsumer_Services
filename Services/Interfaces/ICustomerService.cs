@@ -35,6 +35,11 @@ namespace Services.Interfaces
         public MRClient GetClientByNationalId(string NId);
 
         public void Insert(MRRequest _claimreq);
-        List<MRRequest> GetreimClaimsByClientId(string id);
+        public List<MRRequest> GetreimClaimsByClientId(string id);
+
+        public List<MRClaimType> GetClaimTypes();
+        public List<BankMaster> GetBankNames();
+
+        public List<Registration> GetAllCustomers();
     }
 }

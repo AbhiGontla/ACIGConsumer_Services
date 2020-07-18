@@ -27,5 +27,7 @@ namespace Data
         IRepository<OSClaims> OSClaimsRepository { get; }
         IRepository<MRRequest> ReimbursmentRepository { get; }
         IRepository<MRClient> ClientRepository { get; }
+        IRepository<MRClaimType> ClaimTypeRepository { get; }
+        IRepository<BankMaster> BankRepository { get; }
     }
 }
