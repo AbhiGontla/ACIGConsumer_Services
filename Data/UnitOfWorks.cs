@@ -140,6 +140,29 @@ namespace Data
 
         }
 
+        private IRepository<MRRequestStatusLog> requestStatusLogRepository;
+        public IRepository<MRRequestStatusLog> RequestStatusLogRepository
+        {
+            get
+            {
+                if (this.requestStatusLogRepository == null)
+                    this.requestStatusLogRepository = new Repository<MRRequestStatusLog>(_context);
+                return requestStatusLogRepository;
+            }
+
+        }
+        private IRepository<MRRequestFile> requestFileRepository;
+        public IRepository<MRRequestFile> RequestFileRepository
+        {
+            get
+            {
+                if (this.requestFileRepository == null)
+                    this.requestFileRepository = new Repository<MRRequestFile>(_context);
+                return requestFileRepository;
+            }
+
+        }
+
         private IRepository<MRClaimType> claimTypeRepository;
         public IRepository<MRClaimType> ClaimTypeRepository
         {
@@ -202,5 +225,98 @@ namespace Data
             //set the entity is not being tracked by the context
             entityEntry.State = EntityState.Detached;
         }
+
+        #region TOB
+
+        private IRepository<TOBlist> tobListRepository;
+        public IRepository<TOBlist> TOBListRepository
+        {
+            get
+            {
+                if (this.tobListRepository == null)
+                    this.tobListRepository = new Repository<TOBlist>(_context);
+                return tobListRepository;
+            }
+
+        }
+        private IRepository<TOB> tobRepository;
+        public IRepository<TOB> TOBRepository
+        {
+            get
+            {
+                if (this.tobRepository == null)
+                    this.tobRepository = new Repository<TOB>(_context);
+                return tobRepository;
+            }
+
+        }
+        private IRepository<Inpatient> inpatientRepository;
+        public IRepository<Inpatient> InpatientRepository
+        {
+            get
+            {
+                if (this.inpatientRepository == null)
+                    this.inpatientRepository = new Repository<Inpatient>(_context);
+                return inpatientRepository;
+            }
+
+        }
+        private IRepository<Outpatient> outpatientRepository;
+        public IRepository<Outpatient> OutpatientRepository
+        {
+            get
+            {
+                if (this.outpatientRepository == null)
+                    this.outpatientRepository = new Repository<Outpatient>(_context);
+                return outpatientRepository;
+            }
+
+        }
+        private IRepository<MaternityBenefit> maternityBenefitRepository;
+        public IRepository<MaternityBenefit> MaternityBenefitRepository
+        {
+            get
+            {
+                if (this.maternityBenefitRepository == null)
+                    this.maternityBenefitRepository = new Repository<MaternityBenefit>(_context);
+                return maternityBenefitRepository;
+            }
+
+        }
+        private IRepository<DentalBenefit> dentalBenefitRepository;
+        public IRepository<DentalBenefit> DentalBenefitRepository
+        {
+            get
+            {
+                if (this.dentalBenefitRepository == null)
+                    this.dentalBenefitRepository = new Repository<DentalBenefit>(_context);
+                return dentalBenefitRepository;
+            }
+
+        }
+        private IRepository<ReimbursementClaim> reimbursementClaimRepository;
+        public IRepository<ReimbursementClaim> ReimbursementClaimRepository
+        {
+            get
+            {
+                if (this.reimbursementClaimRepository == null)
+                    this.reimbursementClaimRepository = new Repository<ReimbursementClaim>(_context);
+                return reimbursementClaimRepository;
+            }
+
+        }
+        private IRepository<AdditionalBenefit> additionalBenefitRepository;
+        public IRepository<AdditionalBenefit> AdditionalBenefitRepository
+        {
+            get
+            {
+                if (this.additionalBenefitRepository == null)
+                    this.additionalBenefitRepository = new Repository<AdditionalBenefit>(_context);
+                return additionalBenefitRepository;
+            }
+
+        }
+
+        #endregion
     }
 }

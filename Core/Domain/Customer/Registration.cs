@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Core.Domain
@@ -23,5 +24,12 @@ namespace Core.Domain
         public string ConfirmPin { get; set; }
         public DateTime? LoginDateandTime { get; set; }
         public string Iqama_NationalID { get; set; }
+
+        [NotMapped]
+        public List<object> Errors { get; set; }
+        public string ClassCode { get; set; }
+        public string ClassName { get; set; }
+        public string NetworkCode { get; set; }
+        public string NetworkName { get; set; }
     }
 }

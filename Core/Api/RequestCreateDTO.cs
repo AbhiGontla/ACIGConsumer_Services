@@ -50,11 +50,8 @@ namespace Core.Api
 
     }
 
-   
-       
-
-  
-    public class MRRequest : BaseEntity
+    
+        public class MRRequest : BaseEntity
     {
         public int? ClientId { get; set; }
         public string RequestNumber { get; set; }

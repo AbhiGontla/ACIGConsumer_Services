@@ -68,6 +68,10 @@ namespace Data
                 builder.Property(e => e.ConfirmPin);
                 builder.Property(e => e.LoginDateandTime);
                 builder.Property(e => e.Iqama_NationalID);
+                builder.Property(e => e.ClassCode);
+                builder.Property(e => e.ClassName);
+                builder.Property(e => e.NetworkCode);
+                builder.Property(e => e.NetworkName);
             });
             //Registration Table
             modelBuilder.Entity<Approvals>(builder =>
@@ -426,6 +430,145 @@ namespace Data
                 builder.Property(e => e.Id);
                 builder.Property(e => e.IDNumber);
                 builder.Property(e => e.MobileNumber);
+            });
+
+            modelBuilder.Entity<TOB>(builder =>
+            {
+                builder.Property(e => e.Id);
+                builder.Property(e => e.PolicyNo);
+                builder.Property(e => e.PolicyFromDate);
+                builder.Property(e => e.PolicyToDate);
+                builder.Property(e => e.ClassCode);
+                builder.Property(e => e.ClassName);
+                builder.Property(e => e.Network);
+            });
+
+            modelBuilder.Entity<TOBlist>(builder =>
+            {
+                //builder.HasNoKey();
+                builder.Property(e => e.Id);
+                builder.Property(e => e.ClassName);
+                builder.Property(e => e.InsuranceClass);
+                builder.Property(e => e.GeographicalLimit);
+                builder.Property(e => e.Network);
+                builder.Property(e => e.MemberAnnualLimit);
+                builder.Property(e => e.PreExChrCondition);                
+            });
+
+            modelBuilder.Entity<Inpatient>(builder =>
+            {
+            
+                builder.Property(e => e.ClassName);
+                builder.Property(e => e.RoomType);
+                builder.Property(e => e.RoomDayLimit);
+                builder.Property(e => e.Accommodation);
+                builder.Property(e => e.Surgical);
+                builder.Property(e => e.MedicalNursing);
+                builder.Property(e => e.Servicessupplies);
+                builder.Property(e => e.IntensiveCareUnit);
+                builder.Property(e => e.parentaccommodation);
+                builder.Property(e => e.Co_insurance_Deductible);                
+            });
+
+            modelBuilder.Entity<Outpatient>(builder =>
+            {
+                builder.Property(e => e.Id);
+                builder.Property(e => e.ClassName);
+                builder.Property(e => e.Consultations);
+                builder.Property(e => e.Diagnosticprocedures);
+                builder.Property(e => e.Prescribeddrugs);
+                builder.Property(e => e.Radiotherapy);
+                builder.Property(e => e.Physiotherapy);
+                builder.Property(e => e.MPN);
+                builder.Property(e => e.OHN);
+                builder.Property(e => e.OCN);               
+            });
+
+            modelBuilder.Entity<MaternityBenefit>(builder =>
+            {
+                builder.Property(e => e.Id);
+                builder.Property(e => e.ClassName);
+                builder.Property(e => e.Maternity_SubLimit);
+                builder.Property(e => e.NormalDelivery);
+                builder.Property(e => e.Caesarian);
+                builder.Property(e => e.Miscarriage);
+                builder.Property(e => e.WaitingPeriod);
+                builder.Property(e => e.coverageofnewborns);
+                builder.Property(e => e.PrematureBabies);
+                builder.Property(e => e.MaternityInpatient);
+            });
+
+            modelBuilder.Entity<DentalBenefit>(builder =>
+            {
+                builder.Property(e => e.Id);
+                builder.Property(e => e.ClassName);
+                builder.Property(e => e.DentalConsultation);
+                builder.Property(e => e.Extraction);
+                builder.Property(e => e.X_Ray);
+                builder.Property(e => e.Filling);
+                builder.Property(e => e.RootCanalTreatment);
+                builder.Property(e => e.GumInfectionTreatment);
+                builder.Property(e => e.MaximumDentalSubLimit);
+            });
+
+            modelBuilder.Entity<ReimbursementClaim>(builder =>
+            {
+                builder.Property(e => e.Id);
+                builder.Property(e => e.ClassName);
+                builder.Property(e => e.EmgTreatmentOutside);
+                builder.Property(e => e.NonEmgTreatmentOutside);
+                builder.Property(e => e.EmgExpensesOutside);
+                builder.Property(e => e.ConsGeneralPractitioner);
+                builder.Property(e => e.Specialist_2);
+                builder.Property(e => e.Specialist_1);
+                builder.Property(e => e.Consultant);
+                builder.Property(e => e.ConsultantforScarcity);
+            });
+           
+
+            modelBuilder.Entity<AdditionalBenefit>(builder =>
+            {
+                builder.Property(e => e.Id);
+                builder.Property(e => e.ClassName);
+                builder.Property(e => e.OpticalAids);
+                builder.Property(e => e.HearingAids);
+                builder.Property(e => e.KidneyDialysis);
+                builder.Property(e => e.Acute_NonAcuteTreatment);
+                builder.Property(e => e.Costsofacquiredheart);
+                builder.Property(e => e.processoforgandonation);
+                builder.Property(e => e.CostsofAlzheimer);
+                builder.Property(e => e.Costsofautismcases);
+                builder.Property(e => e.nationalprogramscreening);
+                builder.Property(e => e.CostsofdisabilityCases);
+                builder.Property(e => e.CongenitalDeformities);
+                builder.Property(e => e.Circumcision);
+                builder.Property(e => e.EarPiercing);
+                builder.Property(e => e.LocAmbulanceCharges);
+                builder.Property(e => e.mortalremainstoSaudi);
+                builder.Property(e => e.coveringmorbidobesitytreatment);
+            }); 
+            
+            
+            modelBuilder.Entity<MRRequestStatusLog>(builder =>
+            {
+                builder.HasKey(e => e.StatusLogId);
+                builder.Property(e => e.RequestId);
+                builder.Property(e => e.RequestStatusId);
+                builder.Property(e => e.Comment);
+                builder.Property(e => e.ClientId);
+                builder.Property(e => e.EntryEmpId);
+                builder.Property(e => e.EntryDate);
+            });
+
+            modelBuilder.Entity<MRRequestFile>(builder =>
+            {
+                builder.HasKey(e => e.FileId);
+                builder.Property(e => e.RequestId);
+                builder.Property(e => e.FileDesc);
+                builder.Property(e => e.FilePath);
+                builder.Property(e => e.ClientId);
+                builder.Property(e => e.EntryEmpId);
+                builder.Property(e => e.EntryDate);
             });
         }
     }

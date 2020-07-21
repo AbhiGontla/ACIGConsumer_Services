@@ -23,6 +23,9 @@ namespace Core
         public string GetReimbursmentDetails { get; set; }
         public string AddReimbursmentClaims { get; set; }
         public string UpdateClaimRequest { get; set; }
+        public string RegistrationRequest { get; set; }
+        public string PoliciesRequest { get; set; }
+        public string TOBRequest { get; set; }
         
 
 
@@ -31,6 +34,8 @@ namespace Core
     {
         public string Username { get; set; }
         public string Password { get; set; }
+        public string T_Username { get; set; }
+        public string T_Password { get; set; }       
     }
     public class SmsConfig
     {

@@ -31,6 +31,15 @@ namespace Services
         }
         #endregion
 
+
+        #region InsertPolicies
+        public void Insert(Policies policies)
+        {
+            _unitOfWorks.PoliciesRepository.Insert(policies);
+            _unitOfWorks.Save();
+        } 
+        #endregion
+
         #endregion
 
         public void Insert(Customer customer)
@@ -187,12 +196,29 @@ namespace Services
         #endregion
 
         #region Reimbursmentclaims
-        public void Insert(MRClient client)
+
+        //public void Insert(MRClient client)
+        //{
+        //    try
+        //    {
+        //        _unitOfWorks.ClientRepository.Insert(client);
+        //        _unitOfWorks.Save();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+
+        //}
+
+        public int Insert(MRClient client)
         {
             try
             {
                 _unitOfWorks.ClientRepository.Insert(client);
                 _unitOfWorks.Save();
+                int id = client.Id;
+                return id;
             }
             catch(Exception ex)
             {
@@ -200,6 +226,7 @@ namespace Services
             }
            
         }
+      
 
         public MRClient GetClientByNationalId(string NId)
         {
@@ -207,28 +234,28 @@ namespace Services
             return res.Where(c => (c.IDNumber == NId)).FirstOrDefault();
         }
 
-        public void Insert(MRRequest _reclaims)
+        public int Insert(MRRequest _reclaims)
         {
             _unitOfWorks.ReimbursmentRepository.Insert(_reclaims);
             _unitOfWorks.Save();
+            int id = _reclaims.Id;
+            return id;
         }
+
+        //public void Insert(MRRequest _reclaims)
+        //{
+        //    _unitOfWorks.ReimbursmentRepository.Insert(_reclaims);
+        //    _unitOfWorks.Save();
+           
+        //}
+
 
         public List<MRRequest> GetReimByNationalId(string NId)
         {
             var res = _unitOfWorks.ReimbursmentRepository.GetDbSet();
             return res.Where(c => (c.MemberID == NId)).ToList();
         }
-
-        public void Insert(List<RequestCreateDTO> _reclaims)
-        {
-            throw new NotImplementedException();
-        }
-
-        //public List<RequestCreateDTO> GetreimClaimsByNationalId(string NId)
-        //{
-        //    var res = _unitOfWorks.ReimbursmentRepository.GetDbSet();
-        //    return res.Where(c => (c.MemberID == NId)).ToList();
-        //}
+              
 
         public List<MRRequest> GetreimClaimsByClientId(string id)
         {
@@ -251,6 +278,129 @@ namespace Services
         {
             return _unitOfWorks.RegistrationRepository.GetDbSet().ToList();
         }
+
         #endregion
+
+
+        #region TOB
+
+        public void Insert(TOB tOB)
+        {
+            _unitOfWorks.TOBRepository.Insert(tOB);
+            _unitOfWorks.Save();
+        }
+
+        public TOB GetTOB(string PolicyNumber, string classcode)
+        {
+            var tobdetails = _unitOfWorks.TOBRepository.GetDbSet();
+            return tobdetails.Where(c => (c.PolicyNo.ToString() == PolicyNumber)  &&(c.ClassCode == classcode)).FirstOrDefault();
+        }
+
+        public void Insert(TOBlist tOBlist)
+        {
+            _unitOfWorks.TOBListRepository.Insert(tOBlist);
+            _unitOfWorks.Save();
+        }
+
+        public List<TOBlist> GetTOBList(string classname)
+        {
+            var tobdetails = _unitOfWorks.TOBListRepository.GetDbSet();
+            return tobdetails.Where(c => (c.ClassName == classname)).ToList();
+        }
+
+        public void Insert(Inpatient inpatient)
+        {
+            _unitOfWorks.InpatientRepository.Insert(inpatient);
+            _unitOfWorks.Save();
+        }
+
+        public List<Inpatient> GetInpatientList(string classname)
+        {
+            var tobdetails = _unitOfWorks.InpatientRepository.GetDbSet();
+            return tobdetails.Where(c => (c.ClassName == classname)).ToList();
+        }
+
+        public void Insert(Outpatient outpatient)
+        {
+            _unitOfWorks.OutpatientRepository.Insert(outpatient);
+            _unitOfWorks.Save();
+        }
+
+        public List<Outpatient> GetOutpatientList(string classname)
+        {
+            var tobdetails = _unitOfWorks.OutpatientRepository.GetDbSet();
+            return tobdetails.Where(c => (c.ClassName == classname)).ToList();
+        }
+
+        public void Insert(MaternityBenefit maternityBenefit)
+        {
+            _unitOfWorks.MaternityBenefitRepository.Insert(maternityBenefit);
+            _unitOfWorks.Save();
+        }
+
+        public List<MaternityBenefit> GetMaternityBenefitList(string classname)
+        {
+            var tobdetails = _unitOfWorks.MaternityBenefitRepository.GetDbSet();
+            return tobdetails.Where(c => (c.ClassName == classname)).ToList();
+        }
+
+        public void Insert(DentalBenefit dentalBenefit)
+        {
+            _unitOfWorks.DentalBenefitRepository.Insert(dentalBenefit);
+            _unitOfWorks.Save();
+        }
+
+        public List<DentalBenefit> GetDentalBenefitList(string classname)
+        {
+            var tobdetails = _unitOfWorks.DentalBenefitRepository.GetDbSet();
+            return tobdetails.Where(c => (c.ClassName == classname)).ToList();
+        }
+
+        public void Insert(ReimbursementClaim reimbursementClaim)
+        {
+            _unitOfWorks.ReimbursementClaimRepository.Insert(reimbursementClaim);
+            _unitOfWorks.Save();
+        }
+
+        public List<ReimbursementClaim> GetReimbursementClaimList(string classname)
+        {
+            var tobdetails = _unitOfWorks.ReimbursementClaimRepository.GetDbSet();
+            return tobdetails.Where(c => (c.ClassName == classname)).ToList();
+        }
+
+        public void Insert(AdditionalBenefit additionalBenefit)
+        {
+            _unitOfWorks.AdditionalBenefitRepository.Insert(additionalBenefit);
+            _unitOfWorks.Save();
+        }
+
+        public List<AdditionalBenefit> GetAdditionalBenefitList(string classname)
+        {
+            var tobdetails = _unitOfWorks.AdditionalBenefitRepository.GetDbSet();
+            return tobdetails.Where(c => (c.ClassName == classname)).ToList();
+        }
+
+
+        #endregion
+
+
+        public void Insert(MRRequestStatusLog mRRequestStatusLog)
+        {
+            _unitOfWorks.RequestStatusLogRepository.Insert(mRRequestStatusLog);
+            _unitOfWorks.Save();
+        }
+
+        public void Insert(MRRequestFile requestFile)
+        {
+            _unitOfWorks.RequestFileRepository.Insert(requestFile);
+            _unitOfWorks.Save();
+        }
+
+        public void UpdateRequestNumber(string requestid)
+        {
+            //var MRRequest = new MRRequest() { Id = Convert.ToInt32(requestId) };
+            //_unitOfWorks.ReimbursmentRepository.Attach(MRRequest).Property(x => x.Password).IsModified = true;
+            //db.SaveChanges();
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Core.Api
@@ -56,6 +57,9 @@ namespace Core.Api
 		public string RegionCode { get; set; }
 		public string RegionDesc { get; set; }
 		public string TransDate { get; set; }
+
+		[NotMapped]
+		public List<object> Errors { get; set; }
 	}
     public class PolicyResponse
     {

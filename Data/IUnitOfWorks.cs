@@ -29,5 +29,20 @@ namespace Data
         IRepository<MRClient> ClientRepository { get; }
         IRepository<MRClaimType> ClaimTypeRepository { get; }
         IRepository<BankMaster> BankRepository { get; }
+        IRepository<MRRequestStatusLog> RequestStatusLogRepository { get; }
+        IRepository<MRRequestFile> RequestFileRepository { get; }
+
+        #region TOB
+
+        IRepository<TOBlist> TOBListRepository { get; }
+        IRepository<TOB> TOBRepository { get; }
+        IRepository<Inpatient> InpatientRepository { get; }
+        IRepository<Outpatient> OutpatientRepository { get; }
+        IRepository<MaternityBenefit> MaternityBenefitRepository { get; }
+        IRepository<DentalBenefit> DentalBenefitRepository { get; }
+        IRepository<ReimbursementClaim> ReimbursementClaimRepository { get; }
+        IRepository<AdditionalBenefit> AdditionalBenefitRepository { get; }
+
+        #endregion
     }
 }
